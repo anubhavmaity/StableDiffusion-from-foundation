@@ -5,8 +5,8 @@ d = { 'settings': { 'branch': 'main',
                 'doc_host': 'https://anubhavmaity.github.io',
                 'git_url': 'https://github.com/anubhavmaity/StableDiffusion-from-foundation/',
                 'lib_path': 'miniai'},
-  'syms': { 'miniai.lsh': { 'miniai.lsh.LSH': ('locality_sensitive_hashing_lsh.html#lsh', 'miniai/lsh.py'),
-                            'miniai.lsh.LSH.__init__': ('locality_sensitive_hashing_lsh.html#lsh.__init__', 'miniai/lsh.py'),
-                            'miniai.lsh.LSH.hashing': ('locality_sensitive_hashing_lsh.html#lsh.hashing', 'miniai/lsh.py'),
-                            'miniai.lsh.LSH.query_neigbours': ( 'locality_sensitive_hashing_lsh.html#lsh.query_neigbours',
-                                                                'miniai/lsh.py')}}}
+  'syms': { 'miniai.lsh': { 'miniai.lsh.FastLSH': ('locality_sensitive_hashing_lsh.html#fastlsh', 'miniai/lsh.py'),
+                            'miniai.lsh.FastLSH.__init__': ('locality_sensitive_hashing_lsh.html#fastlsh.__init__', 'miniai/lsh.py'),
+                            'miniai.lsh.FastLSH.hashing': ('locality_sensitive_hashing_lsh.html#fastlsh.hashing', 'miniai/lsh.py'),
+                            'miniai.lsh.FastLSH.query_neigbours': ( 'locality_sensitive_hashing_lsh.html#fastlsh.query_neigbours',
+                                                                    'miniai/lsh.py')}}}
