@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://anubhavmaity.github.io/miniai/lectures/meanshift.html</loc>
+    <lastmod>2023-11-26T00:50:22.864Z</lastmod>
+  </url>
+  <url>
+    <loc>https://anubhavmaity.github.io/miniai/lectures/matmul_notmnist.html</loc>
+    <lastmod>2023-11-26T00:50:22.060Z</lastmod>
+  </url>
+  <url>
+    <loc>https://anubhavmaity.github.io/miniai/practice/meanshift_practice.html</loc>
+    <lastmod>2023-11-26T00:50:20.844Z</lastmod>
+  </url>
+  <url>
+    <loc>https://anubhavmaity.github.io/miniai/hw/locality_sensitive_hashing_lsh.html</loc>
+    <lastmod>2023-11-26T00:50:20.184Z</lastmod>
+  </url>
+  <url>
+    <loc>https://anubhavmaity.github.io/miniai/practice/matmul_fashion_mnist_practice.html</loc>
+    <lastmod>2023-11-26T00:50:21.432Z</lastmod>
+  </url>
+  <url>
+    <loc>https://anubhavmaity.github.io/miniai/lectures/meanshift_lsh.html</loc>
+    <lastmod>2023-11-26T00:50:22.376Z</lastmod>
+  </url>
+</urlset>
