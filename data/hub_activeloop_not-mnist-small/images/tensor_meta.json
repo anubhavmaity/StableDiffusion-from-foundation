@@ -1,0 +1,17 @@
+{
+    "chunk_compression": null,
+    "dtype": "uint8",
+    "htype": "image",
+    "length": 18724,
+    "max_chunk_size": null,
+    "max_shape": [
+        28,
+        28
+    ],
+    "min_shape": [
+        28,
+        28
+    ],
+    "sample_compression": "png",
+    "version": "2.2.2"
+}

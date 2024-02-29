@@ -1,0 +1,14 @@
+{
+    "default_index": [
+        {
+            "start": null,
+            "step": null,
+            "stop": null
+        }
+    ],
+    "groups": [],
+    "hidden_tensors": [],
+    "tensor_names": {},
+    "tensors": [],
+    "version": "3.7.3"
+}

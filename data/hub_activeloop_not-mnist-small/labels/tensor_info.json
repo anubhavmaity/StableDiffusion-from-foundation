@@ -1,0 +1,27 @@
+{
+    "class_names": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J"
+    ],
+    "label_info": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I",
+        "J"
+    ],
+    "notes": "Numeric labels for categories represent the position of the class in the ds.categories.info.class_names list"
+}

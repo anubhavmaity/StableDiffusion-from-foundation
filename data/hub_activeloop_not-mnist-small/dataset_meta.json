@@ -1,0 +1,8 @@
+{
+    "groups": [],
+    "tensors": [
+        "images",
+        "labels"
+    ],
+    "version": "2.2.2"
+}
