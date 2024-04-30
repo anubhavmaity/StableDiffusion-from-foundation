@@ -1,9 +1,0 @@
-project:
-  output-dir: _docs
-
-website:
-  title: "miniai"
-  site-url: "https://anubhavmaity.github.io/miniai/"
-  description: "Repository for the library and docs build when learning stable diffusion from foundation"
-  repo-branch: main
-  repo-url: "https://github.com/anubhavmaity/StableDiffusion-from-foundation/"

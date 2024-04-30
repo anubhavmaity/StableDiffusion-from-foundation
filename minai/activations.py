@@ -17,7 +17,7 @@ from .datasets import *
 from .learner import *
 
 # %% auto 0
-__all__ = ['set_seed', 'Hook', 'append_stats', 'Hooks', 'get_hist', 'get_min']
+__all__ = ['set_seed', 'Hook', 'append_stats', 'Hooks', 'get_hist', 'get_min', 'HooksCallback', 'ActivationStats']
 
 # %% ../nbs/lectures/10_activations.ipynb 5
 def set_seed(seed):
@@ -40,7 +40,8 @@ def append_stats(hook, mod, inp, outp):
 
 # %% ../nbs/lectures/10_activations.ipynb 43
 class Hooks(list):
-    def __init__(self, ms, f): super().__init__([Hook(m, f) for m in ms])
+    def __init__(self, ms, f): 
+        super().__init__([Hook(m, f) for m in ms])
     def __enter__(self, *args): return self
     def __exit__(self, *args): self.remove()
     def __del__(self): self.remove()
@@ -65,4 +66,45 @@ def get_hist(h): return torch.stack(h.stats[2]).t().float().log1p()
 # %% ../nbs/lectures/10_activations.ipynb 52
 def get_min(h):
     h1 = torch.stack(h.stats[2]).t().float()
-    return h1[:2].sum(0)/h1.sum(0)
+    return h1[0]/h1.sum(0)
+
+# %% ../nbs/lectures/10_activations.ipynb 55
+class HooksCallback(Callback):
+    def __init__(self, hookfunc, mod_filter=fc.noop):
+        fc.store_attr()
+        super().__init__()
+    
+    def before_fit(self, learn):
+        mods = fc.filter_ex(learn.model.modules(), self.mod_filter)
+        self.hooks = Hooks(mods, partial(self._hookfunc, learn))
+        
+    def _hookfunc(self, learn, *args, **kwargs):
+        if learn.training: self.hookfunc(*args, **kwargs)
+    
+    def after_fit(self, learn): self.hooks.remove()
+    
+    def __iter__(self): return iter(self.hooks)
+    def __len__(self): return len(self.hooks)
+
+# %% ../nbs/lectures/10_activations.ipynb 61
+class ActivationStats(HooksCallback):
+    def __init__(self, mod_filter=fc.noop): super().__init__(append_stats, mod_filter)
+    
+    def color_dim(self, figsize=(11, 5)):
+        fig, axes = get_grid(len(self), figsize=figsize)
+        for ax, h in zip(axes.flat, self):
+            show_image(get_hist(h), ax, origin='lower', cmap='gnuplot')
+    
+    def dead_chart(self, figsize=(11, 5)):
+        fig, axes = get_grid(len(self), figsize=figsize)
+        for ax, h in zip(axes.flatten(), self):
+            ax.plot(get_min(h))
+            ax.set_ylim(0, 1)
+    
+    def plot_stats(self, figsize=(10, 4)):
+        fig, axs = plt.subplots(1, 2, figsize=figsize)
+        for h in self:
+            for i in 0, 1: axs[i].plot(h.stats[i])
+        axs[0].set_title('Means')
+        axs[1].set_title('Stdevs')
+        plt.legend(fc.L.range(self))

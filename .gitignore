@@ -1,2 +1,3 @@
 anubhav.pem
-nbs/.ipynb_checkpoints/*
+**/.ipynb_checkpoints/*
+**/__pycache__/

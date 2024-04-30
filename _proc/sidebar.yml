@@ -1,8 +1,0 @@
-website:
-  sidebar:
-    contents:
-      - 01_matmul.ipynb
-      - 02_locality_sensitive_hashing_lsh.ipynb
-      - 02_meanshift.ipynb
-      - 02_meanshift_lsh.ipynb
-      - 02_meanshift_practice.ipynb
