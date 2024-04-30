@@ -11,3 +11,4 @@ setuptools==65.4.0
 torch==1.12.1
 torcheval==0.0.7
 torchvision==0.13.1
+timm==0.9.12
