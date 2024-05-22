@@ -32,12 +32,12 @@ from .init import *
 class BaseSchedCB(Callback):
     def __init__(self, sched): self.sched = sched
     def before_fit(self, learn): self.schedo = self.sched(learn.opt)
-    def step(self, learn):
+    def _step(self, learn):
         if learn.training: self.schedo.step()
 
 # %% ../nbs/lectures/12_accel_sgd.ipynb 44
 class BatchSchedCB(BaseSchedCB):
-    def after_batch(self, learn): self.step(learn)
+    def after_batch(self, learn): self._step(learn)
 
 # %% ../nbs/lectures/12_accel_sgd.ipynb 45
 class HasLearnCB(Callback):
@@ -64,4 +64,4 @@ class RecorderCB(Callback):
 
 # %% ../nbs/lectures/12_accel_sgd.ipynb 55
 class EpochSchedCB(BaseSchedCB):
-    def after_epoch(self, learn): self.step(learn)
+    def after_epoch(self, learn): self._step(learn)

@@ -27,7 +27,7 @@ from .conv import *
 from .learner import *
 from .activations import *
 
-# %% ../nbs/lectures/11_initializing.ipynb 15
+# %% ../nbs/lectures/11_initializing.ipynb 14
 def clean_ipython_hist():
     if not 'get_ipython' in globals(): return
     ip = get_ipython()
@@ -41,7 +41,7 @@ def clean_ipython_hist():
     hm.input_hist_raw[:] = [''] * pc
     hm._i = hm._ii = hm._iii = hm._iOO = ''
 
-# %% ../nbs/lectures/11_initializing.ipynb 16
+# %% ../nbs/lectures/11_initializing.ipynb 15
 def clean_tb():
     # h/t Piotr Czapla
     if hasattr(sys, 'last_traceback'):
@@ -50,19 +50,20 @@ def clean_tb():
     if hasattr(sys, 'last_type'): delattr(sys, 'last_type')
     if hasattr(sys, 'last_value'): delattr(sys, 'last_value')
 
-# %% ../nbs/lectures/11_initializing.ipynb 17
+# %% ../nbs/lectures/11_initializing.ipynb 16
 def clean_mem():
     clean_tb()
     clean_ipython_hist()
     gc.collect()
     torch.cuda.empty_cache()
 
-# %% ../nbs/lectures/11_initializing.ipynb 88
+# %% ../nbs/lectures/11_initializing.ipynb 86
 class BatchTransformCB(Callback):
-    def __init__(self, tfm): self.tfm = tfm
-    def before_batch(self, learn): learn.batch = self.tfm(learn.batch)
+    def __init__(self, tfm, on_train=True, on_val=True): fc.store_attr()
+    def before_batch(self, learn): 
+        if (self.on_train and learn.training) or (self.on_val and not learn.training): learn.batch = self.tfm(learn.batch)
 
-# %% ../nbs/lectures/11_initializing.ipynb 97
+# %% ../nbs/lectures/11_initializing.ipynb 95
 class GeneralRelu(nn.Module):
     def __init__(self, leak=None, sub=None, maxv=None):
         super().__init__()
@@ -74,7 +75,7 @@ class GeneralRelu(nn.Module):
         if self.maxv is not None: x.clamp_max(self.maxv)
         return x
 
-# %% ../nbs/lectures/11_initializing.ipynb 98
+# %% ../nbs/lectures/11_initializing.ipynb 96
 def plot_func(f, start=-5., end=5., steps=100):
     x = torch.linspace(start, end, steps)
     plt.plot(x, f(x))
@@ -82,11 +83,11 @@ def plot_func(f, start=-5., end=5., steps=100):
     plt.axhline(y=0, color='k', linewidth=0.7)
     plt.axvline(x=0, color='k', linewidth=0.7)
 
-# %% ../nbs/lectures/11_initializing.ipynb 102
+# %% ../nbs/lectures/11_initializing.ipynb 100
 def init_weights(m, leaky=0.):
     if isinstance(m, (nn.Conv1d, nn.Conv2d, nn.Conv3d, nn.Linear)): init.kaiming_normal_(m.weight, a=leaky)
 
-# %% ../nbs/lectures/11_initializing.ipynb 111
+# %% ../nbs/lectures/11_initializing.ipynb 109
 def _lsuv_stats(hook, mod, inp, outp):
     acts = to_cpu(outp)
     hook.mean = acts.mean()
@@ -101,14 +102,14 @@ def lsuv_init(m, m_in, xb):
             m_in.weight.data /= h.std
     h.remove()
 
-# %% ../nbs/lectures/11_initializing.ipynb 126
+# %% ../nbs/lectures/11_initializing.ipynb 124
 def conv(ni, nf, ks=3, stride=2, act=nn.ReLU, norm=None, bias=True):
     layers = [nn.Conv2d(ni, nf, stride=stride, kernel_size=ks, padding=ks//2, bias=bias)]
     if norm: layers.append(norm(nf))
     if act: layers.append(act())
     return nn.Sequential(*layers)
 
-# %% ../nbs/lectures/11_initializing.ipynb 127
+# %% ../nbs/lectures/11_initializing.ipynb 125
 def get_model(act=nn.ReLU, nfs=None, norm=None, bias=True):
     if norm in (nn.BatchNorm1d, nn.BatchNorm2d, nn.BatchNorm3d): bias=False
     if nfs is None: nfs = [1, 8, 16, 32, 64]

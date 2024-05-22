@@ -7,6 +7,7 @@ import fastcore.all as fc
 from pathlib import Path
 from operator import attrgetter, itemgetter
 from functools import partial
+import os
 
 from torch import tensor, nn, optim
 import torch.nn.functional as F
@@ -21,6 +22,7 @@ __all__ = ['set_seed', 'Hook', 'append_stats', 'Hooks', 'get_hist', 'get_min', '
 
 # %% ../nbs/lectures/10_activations.ipynb 5
 def set_seed(seed):
+    os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":16:8"
     torch.use_deterministic_algorithms(True)
     torch.manual_seed(seed)
     random.seed(seed)
